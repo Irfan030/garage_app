@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/route/routePath.dart';
+import 'package:garage_app/splashScreen/splashscreen.dart';
+import 'package:garage_app/view/home/homeScreen.dart';
+import 'package:garage_app/view/ticket/ticketDetailsScreen.dart';
 import 'package:garage_app/view/ticket/ticketScreen.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../splashScreen/splashscreen.dart';
-import '../view/home/homeScreen.dart';
 
 class AppRoute {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -16,9 +16,16 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => HomeScreen());
 
       case RoutePath.ticketScreen:
-        // Retrieve the passed Notice
         return PageTransition(
-          child: const TicketsScreen(), // Pass it to the screen
+          child: const TicketsScreen(),
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 300),
+        );
+      case RoutePath.ticketDetail:
+        final Map<String, String> ticket =
+            settings.arguments as Map<String, String>;
+        return PageTransition(
+          child: TicketDetailsScreen(ticket: ticket),
           type: PageTransitionType.rightToLeft,
           duration: const Duration(milliseconds: 100),
         );

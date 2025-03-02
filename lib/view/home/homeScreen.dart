@@ -6,7 +6,6 @@ import 'package:garage_app/route/routePath.dart';
 import 'package:garage_app/theme/colors.dart';
 import 'package:garage_app/theme/sizeConfig.dart';
 import 'package:garage_app/view/home/ticketCardUI.dart';
-import 'package:garage_app/widget/defaultButton.dart';
 import 'package:garage_app/widget/homeAppBar.dart';
 import 'package:garage_app/widget/textButtonIcon.dart';
 import 'package:garage_app/widget/textbutton.dart';
@@ -20,6 +19,69 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List<Map<String, String>> ticketsData = [
+    {
+      "issue": "Power Issue",
+      "status": "Pending",
+      "category": "Pump",
+      "priority": "Urgent",
+      "ticketId": "0001",
+      "assessment": "Pump Assessment",
+      "date": "30 Nov 2023",
+      "assignedTo": "Yet to assigned",
+    },
+    {
+      "issue": "Oil Leakage",
+      "status": "Completed",
+      "category": "Engine",
+      "priority": "High",
+      "ticketId": "0002",
+      "assessment": "Engine Check",
+      "date": "28 Nov 2023",
+      "assignedTo": "John Doe",
+    },
+    {
+      "issue": "Power Issue",
+      "status": "Pending",
+      "category": "Pump",
+      "priority": "Urgent",
+      "ticketId": "0001",
+      "assessment": "Pump Assessment",
+      "date": "30 Nov 2023",
+      "assignedTo": "Yet to assigned",
+    },
+    {
+      "issue": "Oil Leakage",
+      "status": "Completed",
+      "category": "Engine",
+      "priority": "High",
+      "ticketId": "0002",
+      "assessment": "Engine Check",
+      "date": "28 Nov 2023",
+      "assignedTo": "John Doe",
+    },
+    {
+      "issue": "Power Issue",
+      "status": "Pending",
+      "category": "Pump",
+      "priority": "Urgent",
+      "ticketId": "0001",
+      "assessment": "Pump Assessment",
+      "date": "30 Nov 2023",
+      "assignedTo": "Yet to assigned",
+    },
+    {
+      "issue": "Oil Leakage",
+      "status": "Completed",
+      "category": "Engine",
+      "priority": "High",
+      "ticketId": "0002",
+      "assessment": "Engine Check",
+      "date": "28 Nov 2023",
+      "assignedTo": "John Doe",
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -30,49 +92,89 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Scaffold(
-        appBar: HomeAppBar(appBar: AppBar()),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Container(
-                color: AppColor.backgroundColor,
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: getProportionateScreenHeight(5)),
-                    _buildNoticeSection(),
-                    _buildOpenTicketsSection(),
-                    ListView.builder(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 5,
-                      ),
-                      itemCount: 10,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return TicketCard();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
+        backgroundColor: AppColor.backgroundColor,
 
-              child: Center(
-                child: SizedBox(
-                  width: SizeConfig.screenWidth / 2,
-                  child: DefaultButton(text: "RAISE TICKET", press: () {}),
+        appBar: HomeAppBar(appBar: AppBar()),
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  color: AppColor.backgroundColor,
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: getProportionateScreenHeight(5)),
+                      _buildNoticeSection(),
+                      _buildOpenTicketsSection(),
+                      ticketsData.isEmpty
+                          ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: TitleWidget(
+                                val: "You haven't raised any tickets.",
+                              ),
+                            ),
+                          )
+                          : ListView.builder(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 5,
+                            ),
+                            itemCount: ticketsData.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final ticket = ticketsData[index];
+                              return TicketCard(
+                                issue: ticket["issue"]!,
+                                status: ticket["status"]!,
+                                category: ticket["category"]!,
+                                priority: ticket["priority"]!,
+                                ticketId: ticket["ticketId"]!,
+                                assessment: ticket["assessment"]!,
+                                date: ticket["date"]!,
+                                assignedTo: ticket["assignedTo"]!,
+                                onTap: () {},
+                              );
+                            },
+                          ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
+
+        floatingActionButton: Container(
+          width: SizeConfig.screenWidth / 2.5,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(23),
+            color: AppColor.mainColor,
+            boxShadow: [
+              BoxShadow(
+                color: AppColor.shadow,
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: FloatingActionButton.extended(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            onPressed: () {},
+            label: TitleWidget(
+              val: "RAISE TICKET",
+              fontSize: 12,
+              letterSpacing: 0,
+              color: AppColor.whiteColor,
+              fontFamily: AppData.poppinsMedium,
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

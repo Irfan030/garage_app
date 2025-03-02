@@ -6,15 +6,36 @@ import 'package:garage_app/widget/textButtonIcon.dart';
 import 'package:garage_app/widget/titleWidget.dart';
 
 class TicketCard extends StatelessWidget {
-  const TicketCard({super.key});
+  final String issue;
+  final String status;
+  final String category;
+  final String priority;
+  final String ticketId;
+  final String assessment;
+  final String date;
+  final String assignedTo;
+  final VoidCallback onTap;
+
+  const TicketCard({
+    super.key,
+    required this.issue,
+    required this.status,
+    required this.category,
+    required this.priority,
+    required this.ticketId,
+    required this.assessment,
+    required this.date,
+    required this.assignedTo,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {},
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColor.whiteColor,
           borderRadius: BorderRadius.circular(15),
@@ -23,14 +44,14 @@ class TicketCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Issue and Status Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TitleWidget(
-                  val: "Power Issue",
-                  letterSpacing: 0,
-
+                  val: issue,
                   fontSize: 14,
+                  letterSpacing: 0,
                   fontFamily: AppData.poppinsMedium,
                   color: AppColor.blackText,
                 ),
@@ -44,37 +65,38 @@ class TicketCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TitleWidget(
-                    letterSpacing: 0,
-                    val: 'Pending',
+                    val: status,
                     fontSize: 10,
+                    letterSpacing: 0,
                     fontFamily: AppData.poppinsRegular,
                     color: AppColor.whiteColor,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(2)),
+            SizedBox(
+              height: getProportionateScreenHeight(8),
+            ), // Adjusted spacing
+            // Category, Priority, and Ticket ID Row
             Row(
               children: [
                 TitleWidget(
-                  val: "Pump •",
+                  val: "$category • ",
                   fontSize: 10,
                   letterSpacing: 0,
-
                   fontFamily: AppData.poppinsMedium,
                   color: AppColor.grayColor,
                 ),
                 TitleWidget(
-                  val: "Urgent",
+                  val: priority,
                   fontSize: 10,
                   letterSpacing: 0,
-
                   fontFamily: AppData.poppinsMedium,
                   color: AppColor.coralPinkColor,
                 ),
-                Spacer(),
+                const Spacer(),
                 TitleWidget(
-                  val: "Ticket ID 0001",
+                  val: "Ticket ID $ticketId",
                   fontSize: 9,
                   letterSpacing: 0,
                   fontFamily: AppData.poppinsMedium,
@@ -82,7 +104,9 @@ class TicketCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(15)),
+            SizedBox(
+              height: getProportionateScreenHeight(15),
+            ), // Adjusted spacing
             // Assessment Box
             Container(
               width: double.infinity,
@@ -97,34 +121,34 @@ class TicketCard extends StatelessWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-
                 children: [
                   TitleWidget(
-                    val: 'Pump Assessment',
+                    val: assessment,
                     fontSize: 12,
                     letterSpacing: 0,
                     fontFamily: AppData.poppinsRegular,
                     color: AppColor.blackText,
                   ),
-                  SizedBox(height: getProportionateScreenHeight(3)),
-
+                  SizedBox(
+                    height: getProportionateScreenHeight(4),
+                  ), // Adjusted spacing
                   Align(
                     alignment: Alignment.centerRight,
-
                     child: TitleWidget(
-                      val: '30 Nov 2023',
+                      val: date,
                       fontSize: 9,
-                      fontFamily: AppData.poppinsRegular,
                       letterSpacing: 0,
-
+                      fontFamily: AppData.poppinsRegular,
                       color: AppColor.grayColor,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(10)),
-
+            SizedBox(
+              height: getProportionateScreenHeight(10),
+            ), // Adjusted spacing
+            // Assigned To and View Details Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -139,7 +163,7 @@ class TicketCard extends StatelessWidget {
                     children: [
                       const TextSpan(text: 'Assigned To: '),
                       TextSpan(
-                        text: 'Yet to assigned',
+                        text: assignedTo,
                         style: TextStyle(
                           fontSize: 12,
                           color: AppColor.greenText,
