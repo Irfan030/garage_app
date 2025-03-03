@@ -44,40 +44,14 @@ class _TicketsScreenState extends State<TicketsScreen>
       openJobs = [
         {
           "issue": "Power Issue",
-          "status": "Open",
+          "status": "Pending",
           "category": "Pump",
+          "mainCategory": "Building Structure",
+          "callType": "Pro-Active",
+          "equipment": "Pump",
+          "component": "Component 1",
           "priority": "Urgent",
           "ticketId": "0001",
-          "assessment": "Pump Assessment",
-          "date": "30 Nov 2023",
-          "assignedTo": "Yet to assigned",
-        },
-        {
-          "issue": "Cooling System Failure",
-          "status": "Open",
-          "category": "Cooling",
-          "priority": "High",
-          "ticketId": "0002",
-          "assessment": "Cooling System Check",
-          "date": "1 Dec 2023",
-          "assignedTo": "Jane Doe",
-        },
-        {
-          "issue": "Power Issue",
-          "status": "Open",
-          "category": "Pump",
-          "priority": "Urgent",
-          "ticketId": "0003",
-          "assessment": "Pump Assessment",
-          "date": "30 Nov 2023",
-          "assignedTo": "Yet to assigned",
-        },
-        {
-          "issue": "Power Issue",
-          "status": "Open",
-          "category": "Pump",
-          "priority": "Urgent",
-          "ticketId": "0004",
           "assessment": "Pump Assessment",
           "date": "30 Nov 2023",
           "assignedTo": "Yet to assigned",
@@ -91,26 +65,48 @@ class _TicketsScreenState extends State<TicketsScreen>
     await Future.delayed(const Duration(seconds: 2)); // Simulate API call
     setState(() {
       closedJobs = [
-        // {
-        //   "issue": "Engine Failure",
-        //   "status": "Closed",
-        //   "category": "Engine",
-        //   "priority": "High",
-        //   "ticketId": "0003",
-        //   "assessment": "Engine Check",
-        //   "date": "25 Feb 2024",
-        //   "assignedTo": "John Doe",
-        // },
-        // {
-        //   "issue": "Transmission Issue",
-        //   "status": "Closed",
-        //   "category": "Transmission",
-        //   "priority": "Medium",
-        //   "ticketId": "0004",
-        //   "assessment": "Transmission Check",
-        //   "date": "20 Feb 2024",
-        //   "assignedTo": "Alice Smith",
-        // },
+        {
+          "issue": "Power Issue",
+          "status": "Completed",
+          "category": "Pump",
+          "mainCategory": "Building Structure",
+          "callType": "Pro-Active",
+          "equipment": "Pump",
+          "component": "Component 1",
+          "priority": "Urgent",
+          "ticketId": "0001",
+          "assessment": "Pump Assessment",
+          "date": "30 Nov 2023",
+          "assignedTo": "Yet to assigned",
+        },
+        {
+          "issue": "Power Issue",
+          "status": "Completed",
+          "category": "Pump",
+          "mainCategory": "Building Structure",
+          "callType": "Pro-Active",
+          "equipment": "Pump",
+          "component": "Component 1",
+          "priority": "Urgent",
+          "ticketId": "0002",
+          "assessment": "Pump Assessment",
+          "date": "30 Nov 2023",
+          "assignedTo": "Yet to assigned",
+        },
+        {
+          "issue": "Power Issue",
+          "status": "Completed",
+          "category": "Pump",
+          "mainCategory": "Building Structure",
+          "callType": "Pro-Active",
+          "equipment": "Pump",
+          "component": "Component 1",
+          "priority": "Urgent",
+          "ticketId": "0003",
+          "assessment": "Pump Assessment",
+          "date": "30 Nov 2023",
+          "assignedTo": "Yet to assigned",
+        },
       ];
       isLoadingClosed = false;
     });
@@ -125,6 +121,7 @@ class _TicketsScreenState extends State<TicketsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.backgroundColor,
       appBar: CustomAppBar(title: "Tickets"),
       body: Column(
         children: [
@@ -216,26 +213,29 @@ class _TicketsScreenState extends State<TicketsScreen>
 
   Widget buildTicketList(List<Map<String, String>> jobs, String title) {
     return jobs.isEmpty
-        ? Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              "assets/images/svg/no_tickets_icon.svg",
-              width: getProportionateScreenHeight(40),
-              height: getProportionateScreenHeight(40),
-            ),
-            const SizedBox(height: 10),
-            TitleWidget(
-              val: "You haven't raised any tickets.",
-              fontSize: 12,
-              letterSpacing: 0,
-              fontFamily: AppData.poppinsRegular,
-              color: AppColor.greyTextColor,
-            ),
-          ],
+        ? Container(
+          color: AppColor.backgroundColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                "assets/images/svg/no_tickets_icon.svg",
+                width: getProportionateScreenHeight(40),
+                height: getProportionateScreenHeight(40),
+              ),
+              const SizedBox(height: 10),
+              TitleWidget(
+                val: "You haven't raised any tickets.",
+                fontSize: 12,
+                letterSpacing: 0,
+                fontFamily: AppData.poppinsRegular,
+                color: AppColor.greyTextColor,
+              ),
+            ],
+          ),
         )
         : Container(
-          color: AppColor.backgroundColor, // Set background color here
+          color: AppColor.backgroundColor,
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 0),
             children: [

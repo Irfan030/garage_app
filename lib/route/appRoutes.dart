@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:garage_app/route/routePath.dart';
 import 'package:garage_app/splashScreen/splashscreen.dart';
 import 'package:garage_app/view/home/homeScreen.dart';
+import 'package:garage_app/view/notices/noticesDetailedScreen.dart';
+import 'package:garage_app/view/notices/noticesScreen.dart';
+import 'package:garage_app/view/ticket/editTicket.dart';
+import 'package:garage_app/view/ticket/escalate.dart';
 import 'package:garage_app/view/ticket/ticketDetailsScreen.dart';
 import 'package:garage_app/view/ticket/ticketScreen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -26,6 +30,35 @@ class AppRoute {
             settings.arguments as Map<String, String>;
         return PageTransition(
           child: TicketDetailsScreen(ticket: ticket),
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 100),
+        );
+      case RoutePath.editTicket:
+        return PageTransition(
+          child: EditTicketScreen(),
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 100),
+        );
+      case RoutePath.escalateTicket:
+        final String ticketId = settings.arguments as String;
+        return PageTransition(
+          child: EscalateTicketScreen(ticketId: ticketId),
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 100),
+        );
+
+      case RoutePath.noticesScreen:
+        return PageTransition(
+          child: NoticesScreen(),
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 100),
+        );
+
+      case RoutePath.noticesDetailedScreen:
+        final notice =
+            settings.arguments as Notice; // Retrieve the passed Notice
+        return PageTransition(
+          child: NoticeDetailScreen(notice: notice), // Pass it to the screen
           type: PageTransitionType.rightToLeft,
           duration: const Duration(milliseconds: 100),
         );

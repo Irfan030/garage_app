@@ -14,7 +14,7 @@ class DefaultButton extends StatelessWidget {
     required this.press,
     this.backgroundColor = AppColor.mainColor,
     this.textColor = AppColor.whiteColor,
-    this.borderRadius = 23,
+    this.borderRadius = 10,
   });
 
   @override
@@ -29,6 +29,7 @@ class DefaultButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius),
           color: backgroundColor,
+          border: Border.all(color: AppColor.mainColor, width: 1.5),
           boxShadow: [
             BoxShadow(
               color: AppColor.shadow,

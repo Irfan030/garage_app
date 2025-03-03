@@ -235,7 +235,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               TextIconButtonWidget(
                 text: 'View all',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(RoutePath.noticesScreen);
+                },
                 iconSize: 20,
               ),
             ],

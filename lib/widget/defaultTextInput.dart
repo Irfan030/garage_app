@@ -55,19 +55,19 @@ class DefaultTextInput extends StatelessWidget {
           fontFamily: "PoppinsRegular",
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.secondarycolor),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.secondarycolor),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.secondarycolor),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.secondarycolor),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),

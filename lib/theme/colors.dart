@@ -10,13 +10,21 @@ class AppColor {
   static const Color blackColor = Color(0XFF000000);
 
   static const Color blackText = Color(0XFF151515);
+  static const Color blackColorWithOpacity75 = Color(0xBF151515);
+  static const Color blackColorWithOpacity16 = Color(0x29151515);
+
   static const Color grayColor = Color(0XFF848484);
   static const Color coralPinkColor = Color(0X00ff7d73);
+  static const Color pinkishOrangeColor = Color(0XFFFF7D73);
+
   static const Color greyTextColor = Color(0XFF848484);
   static const Color containerBackground = Color(0xFFF6F6F6);
   static const Color containerBorderColor = Color(0XFFEFEFEF);
   static const Color greenText = Color(0XFF56DF96);
   static const Color shadow = Color(0XFF00000029);
+
+  static const Color textFieldHintTextColor = Color(0XFFD1D1D1);
+  static const Color imageContainerBackground = Color(0XFF0000001A);
 
   ///////////////////////////////
 
@@ -42,7 +50,6 @@ class AppColor {
   static const Color calenderText = Color(0XFFAAAAAA);
   static const Color secondarycolor = Color(0XFFFFD1A8);
   static const Color appBarSecondaryColor = Color(0XFFFFC6DD);
-  static const Color textFieldHintTextColor = Color(0XFFD1D1D1);
   static const Color dialogBackgroundColor = Color(0XFFF9F9F9);
   static const Color signupTextColor = Color(0XFFFE4848);
   static const Color emptyProgressLoader = Color(0XFFEFEFEF);
