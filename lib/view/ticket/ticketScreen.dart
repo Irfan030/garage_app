@@ -44,7 +44,7 @@ class _TicketsScreenState extends State<TicketsScreen>
       openJobs = [
         {
           "issue": "Power Issue",
-          "status": "Pending",
+          "status": "Open",
           "category": "Pump",
           "mainCategory": "Building Structure",
           "callType": "Pro-Active",
@@ -74,24 +74,12 @@ class _TicketsScreenState extends State<TicketsScreen>
           "equipment": "Pump",
           "component": "Component 1",
           "priority": "Urgent",
-          "ticketId": "0001",
-          "assessment": "Pump Assessment",
-          "date": "30 Nov 2023",
-          "assignedTo": "Yet to assigned",
-        },
-        {
-          "issue": "Power Issue",
-          "status": "Completed",
-          "category": "Pump",
-          "mainCategory": "Building Structure",
-          "callType": "Pro-Active",
-          "equipment": "Pump",
-          "component": "Component 1",
-          "priority": "Urgent",
           "ticketId": "0002",
           "assessment": "Pump Assessment",
+          "assessmentClosed": "Pump Assessment done ",
+
           "date": "30 Nov 2023",
-          "assignedTo": "Yet to assigned",
+          "assignedTo": "Samuel Wilson",
         },
         {
           "issue": "Power Issue",
@@ -104,8 +92,10 @@ class _TicketsScreenState extends State<TicketsScreen>
           "priority": "Urgent",
           "ticketId": "0003",
           "assessment": "Pump Assessment",
+          "assessmentClosed": "Pump Assessment done ",
+
           "date": "30 Nov 2023",
-          "assignedTo": "Yet to assigned",
+          "assignedTo": "Samuel Wilson",
         },
       ];
       isLoadingClosed = false;
@@ -192,7 +182,13 @@ class _TicketsScreenState extends State<TicketsScreen>
                 child: FloatingActionButton.extended(
                   backgroundColor: Colors.transparent,
                   elevation: 0,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutePath.editTicket,
+                      arguments: {'isEditMode': false},
+                    );
+                  },
                   label: TitleWidget(
                     val: "RAISE TICKET",
                     fontSize: 12,

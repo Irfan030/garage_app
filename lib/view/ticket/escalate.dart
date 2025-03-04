@@ -93,14 +93,7 @@ class _EscalateTicketScreenState extends State<EscalateTicketScreen> {
 
   void _submitEscalation() {
     if (_formKey.currentState!.validate()) {
-      // Handle escalation submission
-      final subject = _subjectController.text;
-      // You can now send the escalation request with the ticket ID and subject
-      print("Escalating Ticket ID: ${widget.ticketId}");
-      print("Subject: $subject");
-
-      // Optionally, navigate back or show a success message
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     }
   }
 }

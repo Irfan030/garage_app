@@ -12,7 +12,8 @@ import 'package:garage_app/widget/textbutton.dart';
 import 'package:garage_app/widget/titleWidget.dart';
 
 class EditTicketScreen extends StatefulWidget {
-  const EditTicketScreen({super.key});
+  final bool isEditMode;
+  const EditTicketScreen({super.key, this.isEditMode = false});
 
   @override
   State<EditTicketScreen> createState() => _EditTicketScreenState();
@@ -166,7 +167,9 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      appBar: CustomAppBar(title: "Edit Ticket"),
+      appBar: CustomAppBar(
+        title: widget.isEditMode ? "Edit Ticket" : "Raise Ticket",
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -174,7 +177,7 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
           child: ListView(
             children: [
               TitleWidget(
-                val: "Ticket Details",
+                val: widget.isEditMode ? "Ticket Details" : "New Ticket",
                 fontSize: 14,
                 fontFamily: AppData.poppinsMedium,
                 color: AppColor.blackText,
@@ -210,6 +213,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 listValues: categoryOptions,
                 getDisplayText: (value) => value,
                 getValue: (value) => value,
+                validator: AppData.nameValidation(category),
+                errorMsg: AppData.nameErrorMsg(category, "Category"),
               ),
               SizedBox(height: getProportionateScreenHeight(16)),
 
@@ -225,6 +230,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 listValues: subCategoryOptions,
                 getDisplayText: (value) => value,
                 getValue: (value) => value,
+                validator: AppData.nameValidation(subCategory),
+                errorMsg: AppData.nameErrorMsg(subCategory, "Sub Category"),
               ),
               SizedBox(height: getProportionateScreenHeight(16)),
 
@@ -240,6 +247,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 listValues: priorityOptions,
                 getDisplayText: (value) => value,
                 getValue: (value) => value,
+                validator: AppData.nameValidation(priority),
+                errorMsg: AppData.nameErrorMsg(priority, "Priority (SLA)"),
               ),
               SizedBox(height: getProportionateScreenHeight(16)),
               // Location (Dropdown)
@@ -255,6 +264,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 listValues: locationOptions,
                 getDisplayText: (value) => value,
                 getValue: (value) => value,
+                validator: AppData.nameValidation(location),
+                errorMsg: AppData.nameErrorMsg(location, "Location"),
               ),
               SizedBox(height: getProportionateScreenHeight(16)),
 
@@ -271,6 +282,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 listValues: callTypeOptions,
                 getDisplayText: (value) => value,
                 getValue: (value) => value,
+                validator: AppData.nameValidation(callType),
+                errorMsg: AppData.nameErrorMsg(callType, "Call Type"),
               ),
               SizedBox(height: getProportionateScreenHeight(16)),
 
@@ -287,6 +300,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 listValues: equipmentOptions,
                 getDisplayText: (value) => value,
                 getValue: (value) => value,
+                validator: AppData.nameValidation(equipment),
+                errorMsg: AppData.nameErrorMsg(equipment, "Equipment"),
               ),
 
               SizedBox(height: getProportionateScreenHeight(16)),
@@ -304,6 +319,8 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                 listValues: componentOptions,
                 getDisplayText: (value) => value,
                 getValue: (value) => value,
+                validator: AppData.nameValidation(component),
+                errorMsg: AppData.nameErrorMsg(component, "Component"),
               ),
               SizedBox(height: getProportionateScreenHeight(16)),
 
@@ -334,9 +351,30 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
               SizedBox(height: getProportionateScreenHeight(16)),
 
               DefaultButton(
-                text: "Confirm",
+                text: widget.isEditMode ? "Update Ticket" : "Create Ticket",
+                // press: () {
+                //   if (widget.isEditMode) {
+                //     Navigator.of(context).pop();
+                //   } else {
+                //     Navigator.of(context).pop();
+                //   }
+                // },
                 press: () {
-                  Navigator.of(context).pop();
+                  if (_formKey.currentState!.validate() &&
+                      category.isNotEmpty &&
+                      subCategory.isNotEmpty &&
+                      priority.isNotEmpty &&
+                      location.isNotEmpty &&
+                      callType.isNotEmpty &&
+                      equipment.isNotEmpty &&
+                      component.isNotEmpty) {
+                    // Proceed with submission
+                    Navigator.of(context).pop();
+                  } else {
+                    setState(
+                      () {},
+                    ); // To trigger error messages if fields are empty
+                  }
                 },
               ),
             ],

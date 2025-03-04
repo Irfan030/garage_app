@@ -4,14 +4,25 @@ import 'package:garage_app/constant.dart';
 import 'package:garage_app/route/routePath.dart';
 import 'package:garage_app/theme/colors.dart';
 import 'package:garage_app/theme/sizeConfig.dart';
+import 'package:garage_app/view/ticket/showReopenDialog.dart';
 import 'package:garage_app/widget/customAppBar.dart';
 import 'package:garage_app/widget/defaultButton.dart';
+import 'package:garage_app/widget/textbutton.dart';
 import 'package:garage_app/widget/titleWidget.dart';
 
-class TicketDetailsScreen extends StatelessWidget {
+import 'feedbackDialog.dart';
+
+class TicketDetailsScreen extends StatefulWidget {
   final Map<String, String> ticket;
 
   const TicketDetailsScreen({super.key, required this.ticket});
+
+  @override
+  State<TicketDetailsScreen> createState() => _TicketDetailsScreenState();
+}
+
+class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
+  bool hasEscalation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,27 +47,50 @@ class TicketDetailsScreen extends StatelessWidget {
               children: [
                 _buildSectionTitle("Ticket Details"),
 
-                GestureDetector(
-                  onTap: () async {
-                    Navigator.pushNamed(context, RoutePath.editTicket);
-                  },
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/svg/edit_icon.svg',
-                        width: getProportionateScreenWidth(16.0),
-                        height: getProportionateScreenHeight(16.0),
+                widget.ticket["status"] == "Open"
+                    ? GestureDetector(
+                      onTap: () async {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePath.editTicket,
+                          arguments: {'isEditMode': true},
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/svg/edit_icon.svg',
+                            width: getProportionateScreenWidth(16.0),
+                            height: getProportionateScreenHeight(16.0),
+                          ),
+                          SizedBox(width: getProportionateScreenWidth(4)),
+                          TitleWidget(
+                            val: "Edit",
+                            fontFamily: AppData.poppinsRegular,
+                            fontSize: 12,
+                            color: AppColor.mainColor,
+                          ),
+                        ],
                       ),
-                      SizedBox(width: getProportionateScreenWidth(4)),
-                      TitleWidget(
-                        val: "Edit",
-                        fontFamily: AppData.poppinsRegular,
-                        fontSize: 12,
-                        color: AppColor.mainColor,
-                      ),
-                    ],
-                  ),
-                ),
+                    )
+                    : TextButtonWidget(
+                      text: "Reopen",
+                      fontSize: 12,
+                      fontFamily: AppData.poppinsRegular,
+                      letterSpacing: 0,
+                      onPressed: () {
+                        showConfirmationDialog(
+                          context,
+                          ticketId: widget.ticket["ticketId"]!,
+                          title: "Do you want to reopen this ticket?",
+                          confirmButtonText: "Reopen",
+                          cancelButtonText: "Cancel",
+                          onConfirm: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    ),
               ],
             ),
             SizedBox(height: getProportionateScreenHeight(15)),
@@ -74,7 +108,7 @@ class TicketDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildSectionTitle(ticket["issue"]!),
+                      _buildSectionTitle(widget.ticket["issue"]!),
                       Container(
                         padding: const EdgeInsets.symmetric(
                           vertical: 2,
@@ -85,7 +119,7 @@ class TicketDetailsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TitleWidget(
-                          val: ticket["status"]!,
+                          val: widget.ticket["status"]!,
                           fontSize: 10,
                           letterSpacing: 0,
                           fontFamily: AppData.poppinsRegular,
@@ -100,7 +134,7 @@ class TicketDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TitleWidget(
-                        val: ticket["category"]!,
+                        val: widget.ticket["category"]!,
                         fontSize: 10,
                         letterSpacing: 0,
                         fontFamily: AppData.poppinsMedium,
@@ -108,7 +142,7 @@ class TicketDetailsScreen extends StatelessWidget {
                       ),
 
                       TitleWidget(
-                        val: "Ticket ID ${ticket["ticketId"]!}",
+                        val: "Ticket ID ${widget.ticket["ticketId"]!}",
                         fontSize: 9,
                         letterSpacing: 0,
                         fontFamily: AppData.poppinsMedium,
@@ -136,7 +170,7 @@ class TicketDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TitleWidget(
-                          val: ticket["assessment"]!,
+                          val: widget.ticket["assessment"]!,
                           fontSize: 12,
                           letterSpacing: 0,
                           fontFamily: AppData.poppinsRegular,
@@ -148,7 +182,7 @@ class TicketDetailsScreen extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: TitleWidget(
-                            val: ticket["date"]!,
+                            val: widget.ticket["date"]!,
                             fontSize: 9,
                             letterSpacing: 0,
                             fontFamily: AppData.poppinsRegular,
@@ -160,13 +194,22 @@ class TicketDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: getProportionateScreenHeight(14)),
 
-                  _buildDetailRow("Category", ticket["mainCategory"]!),
-                  _buildDetailRow("Sub Category", ticket["mainCategory"]!),
-                  _buildPriorityRow("Priority (SLA)", ticket["priority"]!),
-                  _buildDetailRow("Call Type", ticket["callType"]!),
-                  _buildDetailRow("Equipment", ticket["equipment"]!),
-                  _buildDetailRow("Component", ticket["component"]!),
-                  _buildAssignedToRow("Assigned To", ticket["assignedTo"]!),
+                  _buildDetailRow("Category", widget.ticket["mainCategory"]!),
+                  _buildDetailRow(
+                    "Sub Category",
+                    widget.ticket["mainCategory"]!,
+                  ),
+                  _buildPriorityRow(
+                    "Priority (SLA)",
+                    widget.ticket["priority"]!,
+                  ),
+                  _buildDetailRow("Call Type", widget.ticket["callType"]!),
+                  _buildDetailRow("Equipment", widget.ticket["equipment"]!),
+                  _buildDetailRow("Component", widget.ticket["component"]!),
+                  _buildAssignedToRow(
+                    "Assigned To",
+                    widget.ticket["assignedTo"]!,
+                  ),
                   SizedBox(height: getProportionateScreenHeight(14)),
 
                   Wrap(
@@ -180,23 +223,143 @@ class TicketDetailsScreen extends StatelessWidget {
                             )
                             .toList(),
                   ),
+
+                  if (widget.ticket["status"] == "Completed")
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children: [
+                        SizedBox(height: getProportionateScreenHeight(25)),
+
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColor.containerBackground,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              width: 1,
+                              color: AppColor.containerBorderColor,
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TitleWidget(
+                                val: widget.ticket["assessmentClosed"]!,
+                                fontSize: 12,
+                                letterSpacing: 0,
+                                fontFamily: AppData.poppinsRegular,
+                                color: AppColor.blackText,
+                              ),
+                              SizedBox(
+                                height: getProportionateScreenHeight(4),
+                              ), // Adjusted spacing
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: TitleWidget(
+                                  val: widget.ticket["date"]!,
+                                  fontSize: 9,
+                                  letterSpacing: 0,
+                                  fontFamily: AppData.poppinsRegular,
+                                  color: AppColor.grayColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(15)),
+                        Wrap(
+                          spacing: 5,
+                          runSpacing: 8,
+                          children:
+                              imageUrls
+                                  .map(
+                                    (path) => _buildStyledImage(
+                                      context,
+                                      path,
+                                      imageUrls,
+                                    ),
+                                  )
+                                  .toList(),
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(16)),
+                        Divider(
+                          thickness: 1,
+                          color: AppColor.containerBorderColor,
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(12)),
+                        Center(
+                          child: TextButtonWidget(
+                            text: "Submit Feedback",
+                            fontSize: 12,
+                            fontFamily: AppData.poppinsRegular,
+                            letterSpacing: 0,
+                            textAlign: TextAlign.center,
+                            onPressed: () {
+                              FeedbackDialog.showFeedbackDialog(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),
+            SizedBox(height: getProportionateScreenHeight(25)),
+
             DefaultButton(press: () {}, text: "Download"),
             SizedBox(height: getProportionateScreenHeight(10)),
 
-            DefaultButton(
-              press: () {
-                Navigator.pushNamed(
-                  context,
-                  RoutePath.escalateTicket,
-                  arguments: ticket["ticketId"], // Pass the ticket ID
-                );
-              },
-              text: "Escalate",
-              backgroundColor: AppColor.whiteColor,
-              textColor: AppColor.mainColor,
+            // Visibility(
+            //   visible: ticket["status"] == "Open",
+            //   child: DefaultButton(
+            //     press: () {
+            //       Navigator.pushNamed(
+            //         context,
+            //         RoutePath.escalateTicket,
+            //         arguments: ticket["ticketId"],
+            //       );
+            //     },
+            //     text: "Escalate",
+            //     backgroundColor: AppColor.whiteColor,
+            //     textColor: AppColor.mainColor,
+            //   ),
+            // ),
+            Visibility(
+              visible: widget.ticket["status"] == "Open",
+              child: DefaultButton(
+                press: () {
+                  if (hasEscalation) {
+                    Navigator.pushNamed(
+                      context,
+                      RoutePath.viewEscalation,
+                      arguments: {
+                        "ticketId": widget.ticket["ticketId"],
+                        "status": "Pending",
+                        "description":
+                            "Technician has been assigned 2 days ago, but the issue is yet to be addressed by the assigned technician.",
+                        "date": "02 Dec 2023",
+                      },
+                    );
+                  } else {
+                    Navigator.pushNamed(
+                      context,
+                      RoutePath.escalateTicket,
+                      arguments: widget.ticket["ticketId"],
+                    ).then((result) {
+                      if (result == true) {
+                        setState(() {
+                          hasEscalation = true;
+                        });
+                      }
+                    });
+                  }
+                },
+                text: hasEscalation ? "View Escalation" : "Escalate",
+                backgroundColor: AppColor.whiteColor,
+                textColor: AppColor.mainColor,
+              ),
             ),
           ],
         ),

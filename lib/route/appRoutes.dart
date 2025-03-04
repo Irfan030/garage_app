@@ -8,6 +8,7 @@ import 'package:garage_app/view/ticket/editTicket.dart';
 import 'package:garage_app/view/ticket/escalate.dart';
 import 'package:garage_app/view/ticket/ticketDetailsScreen.dart';
 import 'package:garage_app/view/ticket/ticketScreen.dart';
+import 'package:garage_app/view/ticket/viewEscalate.dart';
 import 'package:page_transition/page_transition.dart';
 
 class AppRoute {
@@ -34,8 +35,10 @@ class AppRoute {
           duration: const Duration(milliseconds: 100),
         );
       case RoutePath.editTicket:
+        final args = settings.arguments as Map<String, dynamic>?;
+        final isEditMode = args?['isEditMode'] ?? false;
         return PageTransition(
-          child: EditTicketScreen(),
+          child: EditTicketScreen(isEditMode: isEditMode),
           type: PageTransitionType.rightToLeft,
           duration: const Duration(milliseconds: 100),
         );
@@ -43,6 +46,19 @@ class AppRoute {
         final String ticketId = settings.arguments as String;
         return PageTransition(
           child: EscalateTicketScreen(ticketId: ticketId),
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 100),
+        );
+      case RoutePath.viewEscalation:
+        final args = settings.arguments as Map<String, dynamic>;
+
+        return PageTransition(
+          child: ViewEscalationScreen(
+            ticketId: args['ticketId'],
+            status: args['status'],
+            description: args['description'],
+            date: args['date'],
+          ),
           type: PageTransitionType.rightToLeft,
           duration: const Duration(milliseconds: 100),
         );

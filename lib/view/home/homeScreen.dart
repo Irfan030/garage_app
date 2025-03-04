@@ -164,7 +164,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: FloatingActionButton.extended(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                RoutePath.editTicket,
+                arguments: {'isEditMode': false},
+              );
+            },
             label: TitleWidget(
               val: "RAISE TICKET",
               fontSize: 12,
