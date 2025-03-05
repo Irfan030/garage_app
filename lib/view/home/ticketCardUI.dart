@@ -175,7 +175,7 @@ class TicketCard extends StatelessWidget {
                 ),
                 TextIconButtonWidget(
                   text: 'View Details',
-                  onPressed: () {},
+                  onPressed: onTap,
                   iconSize: 20,
                 ),
               ],

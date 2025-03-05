@@ -10,6 +10,7 @@ import 'package:garage_app/widget/defaultButton.dart';
 import 'package:garage_app/widget/textbutton.dart';
 import 'package:garage_app/widget/titleWidget.dart';
 
+import 'feedBackUI.dart';
 import 'feedbackDialog.dart';
 
 class TicketDetailsScreen extends StatefulWidget {
@@ -18,11 +19,14 @@ class TicketDetailsScreen extends StatefulWidget {
   const TicketDetailsScreen({super.key, required this.ticket});
 
   @override
+  @override
   State<TicketDetailsScreen> createState() => _TicketDetailsScreenState();
 }
 
 class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   bool hasEscalation = false;
+  Map<String, dynamic>? feedback;
+  bool isFeedbackExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -291,16 +295,44 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                         SizedBox(height: getProportionateScreenHeight(12)),
                         Center(
                           child: TextButtonWidget(
-                            text: "Submit Feedback",
+                            text:
+                                feedback == null
+                                    ? "Submit Feedback"
+                                    : "Feedback",
                             fontSize: 12,
                             fontFamily: AppData.poppinsRegular,
                             letterSpacing: 0,
                             textAlign: TextAlign.center,
                             onPressed: () {
-                              FeedbackDialog.showFeedbackDialog(context);
+                              if (feedback == null) {
+                                // If no feedback exists, open the feedback dialog
+                                FeedbackDialog.showFeedbackDialog(context, (
+                                  feedbackData,
+                                ) {
+                                  setState(() {
+                                    feedback =
+                                        feedbackData; // Store feedback data
+                                    isFeedbackExpanded =
+                                        true; // Expand feedback UI
+                                  });
+                                });
+                              } else {
+                                // If feedback exists, toggle the feedback UI
+                                setState(() {
+                                  isFeedbackExpanded = !isFeedbackExpanded;
+                                });
+                              }
                             },
                           ),
                         ),
+                        if (feedback != null &&
+                            isFeedbackExpanded) // Show feedback UI if expanded
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: FeedbackSection(
+                              feedback: feedback,
+                            ), // Use FeedbackSection
+                          ),
                       ],
                     ),
                 ],
@@ -311,21 +343,6 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
             DefaultButton(press: () {}, text: "Download"),
             SizedBox(height: getProportionateScreenHeight(10)),
 
-            // Visibility(
-            //   visible: ticket["status"] == "Open",
-            //   child: DefaultButton(
-            //     press: () {
-            //       Navigator.pushNamed(
-            //         context,
-            //         RoutePath.escalateTicket,
-            //         arguments: ticket["ticketId"],
-            //       );
-            //     },
-            //     text: "Escalate",
-            //     backgroundColor: AppColor.whiteColor,
-            //     textColor: AppColor.mainColor,
-            //   ),
-            // ),
             Visibility(
               visible: widget.ticket["status"] == "Open",
               child: DefaultButton(

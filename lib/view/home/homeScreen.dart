@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +12,7 @@ import 'package:garage_app/widget/homeAppBar.dart';
 import 'package:garage_app/widget/textButtonIcon.dart';
 import 'package:garage_app/widget/textbutton.dart';
 import 'package:garage_app/widget/titleWidget.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,57 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
       "date": "30 Nov 2023",
       "assignedTo": "Yet to assigned",
     },
-    {
-      "issue": "Oil Leakage",
-      "status": "Completed",
-      "category": "Engine",
-      "priority": "High",
-      "ticketId": "0002",
-      "assessment": "Engine Check",
-      "date": "28 Nov 2023",
-      "assignedTo": "John Doe",
-    },
-    {
-      "issue": "Power Issue",
-      "status": "Pending",
-      "category": "Pump",
-      "priority": "Urgent",
-      "ticketId": "0001",
-      "assessment": "Pump Assessment",
-      "date": "30 Nov 2023",
-      "assignedTo": "Yet to assigned",
-    },
-    {
-      "issue": "Oil Leakage",
-      "status": "Completed",
-      "category": "Engine",
-      "priority": "High",
-      "ticketId": "0002",
-      "assessment": "Engine Check",
-      "date": "28 Nov 2023",
-      "assignedTo": "John Doe",
-    },
-    {
-      "issue": "Power Issue",
-      "status": "Pending",
-      "category": "Pump",
-      "priority": "Urgent",
-      "ticketId": "0001",
-      "assessment": "Pump Assessment",
-      "date": "30 Nov 2023",
-      "assignedTo": "Yet to assigned",
-    },
-    {
-      "issue": "Oil Leakage",
-      "status": "Completed",
-      "category": "Engine",
-      "priority": "High",
-      "ticketId": "0002",
-      "assessment": "Engine Check",
-      "date": "28 Nov 2023",
-      "assignedTo": "John Doe",
-    },
   ];
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  QRViewController? controller;
+  String? scannedData;
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,11 +126,13 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                RoutePath.editTicket,
-                arguments: {'isEditMode': false},
-              );
+              _showRaiseTicketDialog(context);
+
+              // Navigator.pushNamed(
+              //   context,
+              //   RoutePath.editTicket,
+              //   arguments: {'isEditMode': false},
+              // );
             },
             label: TitleWidget(
               val: "RAISE TICKET",
@@ -183,6 +146,105 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
+  }
+
+  void _showRaiseTicketDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierColor: AppColor.blackColorWithOpacity75, // Blurred background
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Blur effect
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColor.blackColorWithOpacity16,
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Scanner Box
+                      Container(
+                        height: 200, // Adjust height as needed
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: QRView(
+                          key: qrKey,
+                          onQRViewCreated: _onQRViewCreated,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      // Scan QR Button
+                      ElevatedButton(
+                        onPressed: () {
+                          if (scannedData != null) {
+                            Navigator.pop(context); // Close the dialog
+                            Navigator.pushNamed(
+                              context,
+                              RoutePath.editTicket,
+                              arguments: {
+                                'isEditMode': false,
+                                'data': scannedData,
+                              },
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('No QR code scanned yet!'),
+                              ),
+                            );
+                          }
+                        },
+                        child: Text("Scan QR"),
+                      ),
+                      SizedBox(height: 10),
+                      // Add Manual Button
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close the dialog
+                          Navigator.pushNamed(
+                            context,
+                            RoutePath.editTicket,
+                            arguments: {'isEditMode': false},
+                          );
+                        },
+                        child: Text("Add Manual"),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        scannedData = scanData.code; // Store the scanned data
+      });
+      controller.pauseCamera(); // Pause the camera after scanning
+    });
   }
 
   Widget _buildNoticeSection() {
