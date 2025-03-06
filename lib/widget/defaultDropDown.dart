@@ -67,7 +67,7 @@ class DefaultDropDown<T> extends StatelessWidget {
         hint: Text(
           hint.toString(),
           style: TextStyle(
-            color: AppColor.hintColor,
+            color: AppColor.textFieldHintTextColor,
             fontSize: 12,
             fontFamily: AppData.openSansMedium,
           ),

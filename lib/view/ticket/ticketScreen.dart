@@ -294,10 +294,7 @@ class _TicketsScreenState extends State<TicketsScreen>
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color:
-              selected
-                  ? AppColor.dialogBackgroundColor
-                  : AppColor.unselectedTab,
+          color: selected ? AppColor.backgroundColor : AppColor.unselectedTab,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(left),
             topRight: Radius.circular(right),

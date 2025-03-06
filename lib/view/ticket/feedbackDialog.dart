@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/constant.dart';
+import 'package:garage_app/route/routePath.dart';
 import 'package:garage_app/theme/colors.dart';
 import 'package:garage_app/theme/sizeConfig.dart';
 import 'package:garage_app/widget/defaultButton.dart';
@@ -8,7 +9,7 @@ import 'package:garage_app/widget/titleWidget.dart';
 class FeedbackDialog {
   static void showFeedbackDialog(
     BuildContext context,
-    Function(Map<String, dynamic>) onSubmit, // Callback to handle feedback data
+    Function(Map<String, dynamic>) onSubmit,
   ) {
     double rating = 0;
     bool ratingError = false;
@@ -150,11 +151,17 @@ class FeedbackDialog {
                                   "comment": commentController.text.trim(),
                                 };
 
-                                // Pass feedback data to the callback
                                 onSubmit(feedbackData);
 
-                                // Close the dialog
-                                Navigator.of(context).pop();
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  RoutePath.successScreen,
+                                  arguments: {
+                                    'title': 'Feedback',
+                                    'subtitle':
+                                        'Feedback Submitted Successfully',
+                                  },
+                                );
                               }
                             },
                           ),

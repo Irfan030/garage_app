@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:garage_app/constant.dart';
+import 'package:garage_app/route/routePath.dart';
 import 'package:garage_app/theme/colors.dart';
 import 'package:garage_app/theme/sizeConfig.dart';
 import 'package:garage_app/widget/customAppBar.dart';
@@ -352,13 +353,6 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
 
               DefaultButton(
                 text: widget.isEditMode ? "Update Ticket" : "Create Ticket",
-                // press: () {
-                //   if (widget.isEditMode) {
-                //     Navigator.of(context).pop();
-                //   } else {
-                //     Navigator.of(context).pop();
-                //   }
-                // },
                 press: () {
                   if (_formKey.currentState!.validate() &&
                       category.isNotEmpty &&
@@ -368,12 +362,19 @@ class _EditTicketScreenState extends State<EditTicketScreen> {
                       callType.isNotEmpty &&
                       equipment.isNotEmpty &&
                       component.isNotEmpty) {
-                    // Proceed with submission
-                    Navigator.of(context).pop();
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RoutePath.successScreen,
+                      arguments: {
+                        'title':
+                            widget.isEditMode
+                                ? 'Ticket has been updated'
+                                : 'Ticket Raised!',
+                        'subtitle': 'Ticket ID  0001',
+                      },
+                    );
                   } else {
-                    setState(
-                      () {},
-                    ); // To trigger error messages if fields are empty
+                    setState(() {});
                   }
                 },
               ),

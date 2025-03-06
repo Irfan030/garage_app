@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/route/routePath.dart';
-import 'package:garage_app/splashScreen/splashscreen.dart';
 import 'package:garage_app/view/home/homeScreen.dart';
 import 'package:garage_app/view/notices/noticesDetailedScreen.dart';
 import 'package:garage_app/view/notices/noticesScreen.dart';
+import 'package:garage_app/view/splashScreen/splashscreen.dart';
+import 'package:garage_app/view/successScreen/successScreen.dart';
 import 'package:garage_app/view/ticket/editTicket.dart';
 import 'package:garage_app/view/ticket/escalate.dart';
 import 'package:garage_app/view/ticket/ticketDetailsScreen.dart';
@@ -71,11 +72,23 @@ class AppRoute {
         );
 
       case RoutePath.noticesDetailedScreen:
-        final notice =
-            settings.arguments as Notice; // Retrieve the passed Notice
+        final notice = settings.arguments as Notice;
         return PageTransition(
-          child: NoticeDetailScreen(notice: notice), // Pass it to the screen
+          child: NoticeDetailScreen(notice: notice),
           type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 100),
+        );
+
+      case RoutePath.successScreen:
+        final args = settings.arguments as Map<String, String>;
+
+        return PageTransition(
+          type: PageTransitionType.fade,
+          child: SuccessScreen(
+            title: args['title'] ?? 'Success',
+            subtitle: args['subtitle'] ?? '',
+          ),
+
           duration: const Duration(milliseconds: 100),
         );
 

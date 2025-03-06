@@ -159,6 +159,15 @@ class ViewEscalationScreen extends StatelessWidget {
                   cancelButtonText: "No",
                   onConfirm: () {
                     Navigator.pop(context);
+
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RoutePath.successScreen,
+                      arguments: {
+                        'title': 'Escalation',
+                        'subtitle': 'Closed successfully',
+                      },
+                    );
                   },
                 );
               },

@@ -305,19 +305,15 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                             textAlign: TextAlign.center,
                             onPressed: () {
                               if (feedback == null) {
-                                // If no feedback exists, open the feedback dialog
                                 FeedbackDialog.showFeedbackDialog(context, (
                                   feedbackData,
                                 ) {
                                   setState(() {
-                                    feedback =
-                                        feedbackData; // Store feedback data
-                                    isFeedbackExpanded =
-                                        true; // Expand feedback UI
+                                    feedback = feedbackData;
+                                    isFeedbackExpanded = true;
                                   });
                                 });
                               } else {
-                                // If feedback exists, toggle the feedback UI
                                 setState(() {
                                   isFeedbackExpanded = !isFeedbackExpanded;
                                 });
@@ -325,13 +321,10 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
                             },
                           ),
                         ),
-                        if (feedback != null &&
-                            isFeedbackExpanded) // Show feedback UI if expanded
+                        if (feedback != null && isFeedbackExpanded)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: FeedbackSection(
-                              feedback: feedback,
-                            ), // Use FeedbackSection
+                            child: FeedbackSection(feedback: feedback),
                           ),
                       ],
                     ),

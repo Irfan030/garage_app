@@ -8,5 +8,6 @@ class RoutePath {
   static const String viewEscalation = '/view-escalation';
 
   static const String noticesScreen = '/noticesScreen';
-  static const noticesDetailedScreen = '/noticesDetailedScreen';
+  static const String noticesDetailedScreen = '/noticesDetailedScreen';
+  static const String successScreen = '/successScreen';
 }

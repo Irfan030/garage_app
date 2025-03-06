@@ -78,7 +78,7 @@ class _NoticesScreenState extends State<NoticesScreen> {
                       decoration: BoxDecoration(
                         color: AppColor.whiteColor,
                         border: Border.all(
-                          color: AppColor.cartItemBorder,
+                          color: AppColor.containerBorderColor,
                           width: 1,
                         ),
                         borderRadius: BorderRadius.circular(15),

@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-        statusBarColor: AppColor.mainColor.withOpacity(0.1),
+        statusBarColor: AppColor.mainColorWithOpacity10,
       ),
       child: PopScope(
         canPop: false,

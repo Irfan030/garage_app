@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppData {
-  static String AppName = "Firebridge Property Management";
-  static String session = "app-session";
-  static String userId = "userid";
-  static String role = "role";
-  static String firstName = "firstName";
-  static String lastName = "lastName";
-  static String domainname = "gomotires.com";
-  static String platform = "mobile";
+  static String appName = " ";
+  static String session = " ";
+  static String userId = " ";
+  static String role = " ";
+
+  static String domainName = " ";
+  static String platform = " ";
 
   // font
   static String openSansRegular = "OpenSansRegular";
@@ -23,10 +22,8 @@ class AppData {
   static String poppinsItalic = "PoppinsItalic";
 
   static String cartId = "";
-  // Image base url
-  static String imageBaseUrl = "https://gomobile.firebridge.co.za/";
+  static String imageBaseUrl = " ";
 
-  // Set user id and role
   static String userIdValue = "";
   static String roleValue = "";
 
@@ -93,7 +90,6 @@ class AppData {
     return false;
   }
 
-  // Address Validation
   static bool addressValidation(String val) {
     if (val.isEmpty) {
       return true;
@@ -114,12 +110,6 @@ class AppData {
 
   static String invalidErrorMsg(String errorName) {
     return "Please enter a valid $errorName";
-    // if (val.isEmpty) {
-    //   return "Address is required";
-    // } else if (val.length > 25) {
-    //   return "Address must be less than 25 character";
-    // }
-    // return "";
   }
 
   static bool phoneValidation(String val) {
@@ -140,7 +130,7 @@ class AppData {
   }
 
   static bool zipCodeValidation(String val) {
-    final zipCodeRegex = RegExp(r'^\d{5}$'); // Matches a 5-digit number
+    final zipCodeRegex = RegExp(r'^\d{5}$');
     if (!zipCodeRegex.hasMatch(val)) {
       return true;
     }
@@ -172,19 +162,5 @@ class AppData {
       return isMesssage ? "Invalid otp" : true;
     }
     return isMesssage ? "" : false;
-  }
-
-  static void showSnackBarShow(
-    BuildContext context,
-    String message, {
-    Color backgroundColor = Colors.green,
-  }) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message, style: TextStyle(color: Colors.white)),
-        backgroundColor: backgroundColor,
-        duration: Duration(seconds: 2),
-      ),
-    );
   }
 }
