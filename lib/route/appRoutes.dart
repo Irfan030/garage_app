@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/route/routePath.dart';
+import 'package:garage_app/view/auth/Screens/logInScreen.dart';
 import 'package:garage_app/view/home/homeScreen.dart';
 import 'package:garage_app/view/notices/noticesDetailedScreen.dart';
 import 'package:garage_app/view/notices/noticesScreen.dart';
@@ -17,6 +18,26 @@ class AppRoute {
     switch (settings.name) {
       case RoutePath.splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
+
+      case RoutePath.login:
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
+
+      // case RoutePath.signup:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const SignupScreen(),
+      //   );
+      // case RoutePath.otpScreen:
+      //   OtpScreenArgument otpScreenArgument =
+      //   settings.arguments as OtpScreenArgument;
+      //   return MaterialPageRoute(
+      //     builder: (_) => OtpScreen(
+      //       otpScreenArgument: otpScreenArgument,
+      //     ),
+      //   );
+      // case RoutePath.setPassword:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const SetPasswordScreen(),
+      //   );
 
       case RoutePath.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());

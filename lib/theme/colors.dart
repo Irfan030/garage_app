@@ -8,6 +8,8 @@ class AppColor {
   static const Color whiteColor = Color(0XFFFFFFFF);
   static const Color backgroundColor = Color(0xFFF9F9F9);
   static const Color blueColorWithOpacity10 = Color(0X1A39A9DB);
+  static const Color blueColorWithOpacity20 = Color(0X3339A9DB);
+
   static const Color textButtonColor = Color(0xFF16425B);
   static const Color blackColor = Color(0XFF000000);
 
@@ -34,31 +36,4 @@ class AppColor {
   static const Color labelColor = Color(0XFF2C2C2C);
 
   static const Color imageContainerBackground = Color(0XFF0000001A);
-
-  ///////////////////////////////
-
-  // static const Color secondaryColor = Color(0XFF4280EF);
-  // static const Color star = Color(0XFFFFE044);
-
-  // static const Color searchBorder = Color(0XFFE9E9E9);
-  // static const Color lightBlack = Color(0XFF5A5A5A);
-  // static const Color dashboardBackground = Color(0XFFF8F8F8);
-  // static const Color border = Color(0xFFDCDCDC);
-  // static const Color blue = Color(0xFF4280EF);
-  // static const Color orange = Color(0xFFFFA95D);
-  // static const Color rightIcon = Color(0XFFEBEBEB);
-  // static const Color expansionTile = Color(0XFFFAF1E9);
-  // static const Color menuBackground = Color(0XFFF5F5F5);
-  // static const Color timeBackground = Color(0XFFCCCCCC);
-  // static const Color calenderText = Color(0XFFAAAAAA);
-  // static const Color secondarycolor = Color(0XFFFFD1A8);
-  // static const Color appBarSecondaryColor = Color(0XFFFFC6DD);
-  // static const Color dialogBackgroundColor = Color(0XFFF9F9F9);
-  // static const Color signupTextColor = Color(0XFFFE4848);
-  // static const Color emptyProgressLoader = Color(0XFFEFEFEF);
-  // static const Color stepProgressgGradientColor = Color(0XFF803F3A);
-  // static const Color SplashScreenColor = Color(0X80FFD1A8);
-  // static const Color borderColor = Color(0XFFFFA95D);
-  // static const Color lightGrey = Color(0XFF808080);
-  // static const Color notSelectedTabColor = Color(0xFFE4E1E1);
 }

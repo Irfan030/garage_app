@@ -9,10 +9,14 @@ class DefaultButton extends StatelessWidget {
   final Color textColor;
   final double borderRadius;
   final Color borderColor;
+  final bool? loading;
+
   const DefaultButton({
     super.key,
     required this.text,
     required this.press,
+    this.loading = false,
+
     this.backgroundColor = AppColor.mainColor,
     this.textColor = AppColor.whiteColor,
     this.borderRadius = 10,
@@ -23,7 +27,7 @@ class DefaultButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        press();
+        if (!loading!) press();
       },
       child: Container(
         height: getProportionateScreenHeight(45),
@@ -42,14 +46,17 @@ class DefaultButton extends StatelessWidget {
         ),
 
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: textColor,
-              fontSize: 12,
-              fontFamily: "PoppinsMedium",
-            ),
-          ),
+          child:
+              loading!
+                  ? const CircularProgressIndicator(color: AppColor.whiteColor)
+                  : Text(
+                    text,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 12,
+                      fontFamily: "PoppinsMedium",
+                    ),
+                  ),
         ),
       ),
     );

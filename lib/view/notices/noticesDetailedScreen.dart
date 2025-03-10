@@ -20,6 +20,8 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.backgroundColor,
+
       appBar: CustomAppBar(title: "Notices"),
       body: SingleChildScrollView(
         child: Container(

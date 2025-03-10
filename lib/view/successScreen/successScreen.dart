@@ -36,7 +36,8 @@ class _SuccessScreenState extends State<SuccessScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              'assets/animation/simple_tick.json',
+              // 'assets/animation/simple_tick.json',
+              'assets/animation/Simple.json',
               width: 100,
               height: 100,
               repeat: false,

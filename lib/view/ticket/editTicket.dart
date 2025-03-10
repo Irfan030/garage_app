@@ -14,13 +14,28 @@ import 'package:garage_app/widget/titleWidget.dart';
 
 class EditTicketScreen extends StatefulWidget {
   final bool isEditMode;
-  const EditTicketScreen({super.key, this.isEditMode = false});
+  final String? scannedData;
+
+  const EditTicketScreen({
+    super.key,
+    this.isEditMode = false,
+    this.scannedData,
+  });
 
   @override
   State<EditTicketScreen> createState() => _EditTicketScreenState();
 }
 
 class _EditTicketScreenState extends State<EditTicketScreen> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.scannedData != null) {
+      // Use the scanned data
+      print("Scanned Data: ${widget.scannedData}");
+    }
+  }
+
   List<PlatformFile> mediaFiles = [];
 
   final _formKey = GlobalKey<FormState>();

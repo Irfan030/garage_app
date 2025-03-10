@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppData {
-  static String appName = " ";
+  static String appName = "Garage APP";
   static String session = " ";
   static String userId = " ";
   static String role = " ";
