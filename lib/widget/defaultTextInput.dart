@@ -45,7 +45,7 @@ class DefaultTextInput extends StatelessWidget {
         labelText: label,
 
         labelStyle: TextStyle(
-          color: AppColor.greyTextColor,
+          color: AppColor.labelColor,
           fontSize: 14,
           fontFamily: "PoppinsMedium",
         ),

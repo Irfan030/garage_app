@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             debugShowCheckedModeBanner: false,
-            initialRoute: RoutePath.login,
+            initialRoute: RoutePath.splash,
             onGenerateRoute: AppRoute.generateRoute,
           );
         },

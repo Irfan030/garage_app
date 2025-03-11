@@ -25,13 +25,8 @@ class AuthHeader extends StatelessWidget {
       width: SizeConfig.screenWidth,
       child: Stack(
         children: [
-          // Positioned.fill(
-          //   child: SvgPicture.asset(
-          //     'assets/images/svg/loginEllipse.svg', // Path to your SVG
-          //     fit: BoxFit.cover, // Adjust the fit of the background
-          //   ),
-          // ),
           Container(
+            width: double.infinity,
             color: AppColor.mainColor,
             padding: EdgeInsets.all(10),
             child: Column(
@@ -51,10 +46,10 @@ class AuthHeader extends StatelessWidget {
                     margin: EdgeInsets.only(right: 3),
                     child:
                         showBackButton
-                            ? Image.asset(
-                              "assets/images/back.png",
-                              width: getProportionateScreenWidth(25),
-                              height: getProportionateScreenHeight(21),
+                            ? Icon(
+                              Icons.arrow_back_ios_new_outlined,
+                              size: getProportionateScreenHeight(23),
+                              color: AppColor.whiteColor,
                             )
                             : Container(
                               height: getProportionateScreenHeight(21),

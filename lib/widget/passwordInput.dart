@@ -70,19 +70,19 @@ class _PasswordInputState extends State<PasswordInput> {
           fontFamily: AppData.openSansMedium,
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.blueColorWithOpacity20),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.blueColorWithOpacity20),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.blueColorWithOpacity20),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.blueColorWithOpacity20),
+          borderSide: BorderSide(color: AppColor.blueColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),

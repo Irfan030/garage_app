@@ -4,6 +4,7 @@ import 'package:garage_app/constant.dart';
 import 'package:garage_app/repository/formSubmissionStatus.dart';
 import 'package:garage_app/route/routePath.dart';
 import 'package:garage_app/theme/colors.dart';
+import 'package:garage_app/theme/sizeConfig.dart';
 import 'package:garage_app/view/auth/Screens/otpScreen.dart';
 import 'package:garage_app/view/auth/authBloc/authBloc.dart';
 import 'package:garage_app/view/auth/authBloc/authEvent.dart';
@@ -45,16 +46,17 @@ class _SignupScreenState extends State<SignupScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: AppColor.backgroundColor,
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: Column(
             children: [
               AuthHeader(
-                title: "Signup for an\nAccount",
+                title: "Signup for an \nAccount",
                 subtitle: "Register now",
                 showBackButton: true,
               ),
-              SizedBox(height: 30),
+              SizedBox(height: getProportionateScreenHeight(30)),
               Container(
                 padding: EdgeInsets.all(10),
                 child: SingleChildScrollView(
@@ -83,7 +85,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               "First Name",
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: getProportionateScreenHeight(20)),
                           DefaultTextInput(
                             hint: "Enter Last Name",
                             label: "Last Name",
@@ -98,7 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               "Last Name",
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: getProportionateScreenHeight(20)),
                           DefaultTextInput(
                             hint: "Enter Email ID",
                             label: "Email ID",
@@ -110,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             validator: AppData.isValidEmail(email),
                             errorMsg: "Invalid email id ",
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: getProportionateScreenHeight(20)),
                           DefaultTextInput(
                             hint: "Enter Phone Number",
                             label: "Phone Number",
@@ -122,9 +124,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             validator: AppData.isValidPhoneNo(phoneNo),
                             errorMsg: "Invalid phone number",
                           ),
-                          SizedBox(height: 40),
+                          SizedBox(height: getProportionateScreenHeight(40)),
                           submitBtn(),
-                          SizedBox(height: 20),
+                          SizedBox(height: getProportionateScreenHeight(20)),
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).pushNamed(RoutePath.login);
@@ -134,13 +136,13 @@ class _SignupScreenState extends State<SignupScreen> {
                               children: [
                                 TitleWidget(
                                   val: "Already have an account? ",
-                                  color: Color(0XFF151515),
+                                  color: AppColor.blackText,
                                   fontFamily: AppData.openSansMedium,
                                 ),
                                 TitleWidget(
                                   val: "Login",
-                                  color: AppColor.mainColor,
-                                  fontFamily: AppData.openSansMedium,
+                                  color: AppColor.textButtonColor,
+                                  fontFamily: AppData.poppinsRegular,
                                 ),
                               ],
                             ),

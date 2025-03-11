@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String email = "", password = "";
   bool loader = false;
-  Authrepository authrepository = Authrepository();
+  Authrepository authRepository = Authrepository();
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: AppColor.whiteColor,
+        backgroundColor: AppColor.backgroundColor,
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -178,12 +178,12 @@ class _LoginScreenState extends State<LoginScreen> {
       "persistentLogin": true,
     };
 
-    var response = await authrepository.login(params);
+    var response = await authRepository.login(params);
     if (response.data["code"] == 200 && !response.data["error"]) {
-      // await SharedPreference.addStringToSF(
-      //   AppData.session,
-      //   // response.headers['Authorization']?[0],
-      // );
+      await SharedPreference.addStringToSF(
+        AppData.session,
+        response.headers['Authorization']?[0],
+      );
       await SharedPreference.addStringToSF(
         AppData.userId,
         response.data["results"]["data"]["user"]["id"],

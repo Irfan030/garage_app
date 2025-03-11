@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:garage_app/route/routePath.dart';
+import 'package:garage_app/view/auth/Screens/SignUpScreen.dart';
+import 'package:garage_app/view/auth/Screens/forgotPasswordScreen.dart';
 import 'package:garage_app/view/auth/Screens/logInScreen.dart';
+import 'package:garage_app/view/auth/Screens/otpScreen.dart';
+import 'package:garage_app/view/auth/Screens/setPassWordScreen.dart';
 import 'package:garage_app/view/home/homeScreen.dart';
 import 'package:garage_app/view/notices/noticesDetailedScreen.dart';
 import 'package:garage_app/view/notices/noticesScreen.dart';
@@ -22,22 +26,18 @@ class AppRoute {
       case RoutePath.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
-      // case RoutePath.signup:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const SignupScreen(),
-      //   );
-      // case RoutePath.otpScreen:
-      //   OtpScreenArgument otpScreenArgument =
-      //   settings.arguments as OtpScreenArgument;
-      //   return MaterialPageRoute(
-      //     builder: (_) => OtpScreen(
-      //       otpScreenArgument: otpScreenArgument,
-      //     ),
-      //   );
-      // case RoutePath.setPassword:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const SetPasswordScreen(),
-      //   );
+      case RoutePath.signup:
+        return MaterialPageRoute(builder: (_) => const SignupScreen());
+      case RoutePath.otpScreen:
+        OtpScreenArgument otpScreenArgument =
+            settings.arguments as OtpScreenArgument;
+        return MaterialPageRoute(
+          builder: (_) => OtpScreen(otpScreenArgument: otpScreenArgument),
+        );
+      case RoutePath.setPassword:
+        return MaterialPageRoute(builder: (_) => const SetPasswordScreen());
+      case RoutePath.forgotPassword:
+        return MaterialPageRoute(builder: (_) => const Forgotpassword());
 
       case RoutePath.homeScreen:
         return MaterialPageRoute(builder: (_) => HomeScreen());
